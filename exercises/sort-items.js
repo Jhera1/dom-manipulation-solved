@@ -12,7 +12,7 @@
  */
 
 // Your code goes here...
-
+const allItems = document.querySelectorAll('.item');
 
 
 /**
@@ -23,6 +23,7 @@
  */
 
 // Your code goes here...
+const sortBtn = document.querySelectorAll('.sortBtn');
 
 
 
@@ -38,6 +39,15 @@
  */
 
 // Your code goes here...
+const sortData = (direction) => {
+  const container = document.getElementById('main');
+  const multiplier = direction === 'asc' ? 1 : -1;
+  const itemsArray = [...allItems];
+
+  itemsArray.sort((a, b) => multiplier * a.id.localeCompare(b.id));
+  itemsArray.forEach(container.appendChild.bind(container));
+};
+  
 
 
 
@@ -51,4 +61,6 @@
 
 // Your code goes here...
 
-
+sortBtn.forEach(button =>
+  button.addEventListener('click', () => sortData(button.dataset.sortdir))
+);

@@ -12,6 +12,8 @@
  */
 
 // Your code goes here...
+const allItems = document.querySelectorAll('.item');
+
 
 
 
@@ -23,6 +25,8 @@
  * */
 
 // Your code goes here
+const main = document.getElementById('main');
+
 
 
 
@@ -34,6 +38,8 @@
  */
 
 // Your code goes here
+const favs = document.getElementById('favs');
+
 
 
 
@@ -47,6 +53,25 @@
  */
 
 // Your code goes here
+function updateCollections(id, direction) {
+  const item = document.getElementById(id.toString());
+  const mainContainer = document.getElementById('main');
+  const favsContainer = document.getElementById('favs');
+
+  const targetContainer = direction === 'toMain' ? mainContainer : favsContainer;
+  const iconClass = direction === 'toMain' ? 'fa-heart-circle-plus' : 'fa-heart-crack';
+
+  targetContainer.appendChild(item);
+  
+  let iconElement = item.querySelector('i');
+  if (!iconElement) {
+      iconElement = document.createElement('i');
+      iconElement.classList.add('fa-solid', iconClass);
+      item.insertBefore(iconElement, item.firstChild);
+  } else {
+      iconElement.className = `fa-solid ${iconClass}`;
+  }
+}
 
 
 
@@ -65,5 +90,12 @@
  */
 
 // Your code goes here...
-
-
+allItems.forEach(item => {
+  item.addEventListener('click', function() {
+      const parentId = this.parentElement.id;
+      const itemId = this.id;
+      const direction = parentId === 'main' ? 'toFavs' : 'toMain';
+      
+      updateCollections(itemId, direction);
+  });
+});
